@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 		Cviebrock\EloquentSluggable\ServiceProvider::class,
+		App\Providers\ComposerServiceProvider::class,
 
         /*
          * Package Service Providers...

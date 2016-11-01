@@ -33,6 +33,6 @@ class MoviesController extends Controller
 
 	public function edit(Movie $movie)
 	{
-		return view('movies.edit');
+		return view('movies.edit', compact('movie'));
 	}
 }

@@ -18,7 +18,7 @@ class CreateMoviesTable extends Migration
 			$table->string('title');
 			$table->string('slug');
 			$table->char('rating');
-			$table->dateTime('release_date');
+			$table->date('release_date');
             $table->timestamps();
         });
     }
