@@ -11,7 +11,7 @@
             @foreach ($movies as $movie)
                 <li>
                     <span class="title">{{ $movie->title }}</span>
-                    <span class="more_info"><a href="{{ action('MoviesController@edit', ['slug' => $movie->title]) }}">More about {{ $movie->title }}</a></span>
+                    <span class="more_info"><a href="{{ action('MoviesController@show', ['slug' => $movie->slug]) }}">More about {{ $movie->title }}</a></span>
                 </li>
             @endforeach
         </ul>

@@ -27,6 +27,7 @@ class CanAddNewMovieTest extends TestCase
 	{
 		$movie = factory(App\Movie::class)->create([
 			'title' => 'The Count of Monte Cristo',
+			'slug'  => 'the-count-of-monte-cristo',
 			'rating' => 'NC-17'
 		]);
 

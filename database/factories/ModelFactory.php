@@ -26,6 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Movie::class, function (Faker\Generator $faker) {
 	return [
 		'title' => 'The ' . $faker->word,
+		'slug' => str_slug('The ' . $faker->word),
 		'rating' => $faker->randomLetter,
 		'release_date' => $faker->dateTimeThisDecade,
 	];

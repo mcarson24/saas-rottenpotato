@@ -19,6 +19,11 @@ class MoviesController extends Controller
 		return view('movies.create');
 	}
 
+	public function show(Movie $movie)
+	{
+		return view('movies.show', compact('movie'));
+	}
+
 	public function store(Request $request)
 	{
 		Movie::create($request->all());
@@ -26,10 +31,8 @@ class MoviesController extends Controller
 		return redirect('movies');
 	}
 
-	public function edit(Request $request)
+	public function edit(Movie $movie)
 	{
-		$movie = Movie::findBySlug($request->slug);
-
 		return view('movies.edit');
 	}
 }
