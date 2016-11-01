@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Movie;
+//
+//Route::get('/', function () {
+//	$movies = Movie::all();
+////	dd($movies);
+//    return view('welcome', compact('movies'));
+//});
+
+Route::get('/', 'MoviesController@index');
+
+Route::resource('movies', 'MoviesController');
+
+
