@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -10,6 +11,8 @@ class Movie extends Model
 	use Sluggable;
 
 	protected $fillable = ['title', 'rating', 'release_date'];
+
+	protected $dates = ['release_date'];
 
 	public function getRouteKey()
 	{
@@ -23,6 +26,13 @@ class Movie extends Model
 				'source' => 'title'
 			]
 		];
+	}
+
+	public function getReleaseDateAttribute($release_date)
+	{
+		$date = new Carbon($release_date);
+
+		return $date->format('F j, Y');
 	}
 
 	public static function findBySlug($slug)

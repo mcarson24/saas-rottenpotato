@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
+        <nav>
+            <h1 class="title">Rotten Potatoes!</h1>
+        </nav>
         @yield('content')
     </body>
 </html>

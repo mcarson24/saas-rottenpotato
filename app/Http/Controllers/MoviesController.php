@@ -42,4 +42,11 @@ class MoviesController extends Controller
 
 		return redirect('movies/' . $movie->slug);
 	}
+
+	public function destroy(Movie $movie)
+	{
+		$movie->delete();
+
+		return redirect('movies');
+	}
 }
