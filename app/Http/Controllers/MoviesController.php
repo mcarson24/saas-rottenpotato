@@ -35,4 +35,11 @@ class MoviesController extends Controller
 	{
 		return view('movies.edit', compact('movie'));
 	}
+
+	public function update(Request $request, Movie $movie)
+	{
+		$movie->update($request->all());
+
+		return redirect('movies/' . $movie->slug);
+	}
 }
