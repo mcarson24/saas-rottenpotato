@@ -10,6 +10,8 @@
         <nav>
             <h1 class="title">Rotten Potatoes!</h1>
         </nav>
-        @yield('content')
+        <div id="main">
+            @yield('content')
+        </div>
     </body>
 </html>

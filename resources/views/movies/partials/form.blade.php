@@ -2,7 +2,7 @@
 <label for="title">Title</label>
 <input type="text" name="title" value="{{ $movie->title ?? '' }}">
 <label for="title">Rating</label>
-<select name="rating" id="rating">
+<select name="rating" id="movie_rating">
     @foreach ($ratings as $rating)
         @if (isset($movie))
             <option value="{{ $rating }}" {{ $movie->rating == $rating ? 'selected' : '' }}>{{ $rating }}</option>
