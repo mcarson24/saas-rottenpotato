@@ -8,4 +8,6 @@
 
     <a href="{{ action('MoviesController@edit', $movie->slug) }}">Edit</a>
 
+    <a href="{{ action('MoviesController@index') }}">Back to movie list</a>
+
 @endsection
