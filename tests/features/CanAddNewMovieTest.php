@@ -11,7 +11,7 @@ class CanAddNewMovieTest extends TestCase
     /** @test */
     public function a_user_can_add_a_new_movie()
 	{
-		$this->visit('/movies')
+		$this->visit('movies')
 			 ->click('Add New Movie')
 			 ->seePageIs('movies/create')
 			 ->type('The Count of Monte Cristo', 'title')
@@ -19,6 +19,7 @@ class CanAddNewMovieTest extends TestCase
 			 ->type('01/21/2002', 'release_date')
 			 ->press('Add Movie')
 			 ->seePageIs('movies')
+			 ->see('The Count of Monte Cristo was added.')
 			 ->see('The Count of Monte Cristo');
 	}
 
@@ -39,6 +40,7 @@ class CanAddNewMovieTest extends TestCase
 			 ->type('01/21/2002', 'release_date')
 			 ->press('Update Movie Info')
 			 ->seePageIs('movies/the-count-of-monte-cristo')
+			 ->see('The Count of Monte Cristo was updated.')
 			 ->see('PG-13')
 			 ->dontSee('NC-17');
 	}

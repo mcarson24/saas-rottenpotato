@@ -12,8 +12,6 @@ class Movie extends Model
 
 	protected $fillable = ['title', 'rating', 'release_date'];
 
-	protected $dates = ['release_date'];
-
 	public function getRouteKey()
 	{
 		return 'slug';
@@ -28,9 +26,9 @@ class Movie extends Model
 		];
 	}
 
-	public function getReleaseDateAttribute($release_date)
+	public function getNiceReleaseDateAttribute()
 	{
-		$date = new Carbon($release_date);
+		$date = new Carbon($this->release_date);
 
 		return $date->format('F j, Y');
 	}
@@ -42,6 +40,6 @@ class Movie extends Model
 
     public static function recent($amountOfMovies = 15)
 	{
-		return self::orderBy('created_at')->take($amountOfMovies)->get();
+		return self::latest('created_at')->take($amountOfMovies)->get();
 	}
 }

@@ -4,9 +4,13 @@
 
     <h2>Details About {{ $movie->title }}</h2>
 
+    @if (session()->has('movie_status'))
+        <span>{{ session('movie_status') }}</span>
+    @endif
+
     <ul id="details">
         <li>Rating: {{ $movie->rating }}</li>
-        <li>Released on: {{ $movie->release_date }}</li>
+        <li>Released on: {{ $movie->nice_release_date }}</li>
     </ul>
 
     <p id="description">Description:<p>

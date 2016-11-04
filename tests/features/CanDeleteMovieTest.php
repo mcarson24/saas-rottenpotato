@@ -22,6 +22,7 @@ class CanDeleteMovieTest extends TestCase
 			 ->seePageIs('movies/star-trek-first-contact')
 			 ->press('Delete')
 			 ->seePageIs('movies')
-			 ->dontSee($movie->title);
+			 ->see('Star Trek: First Contact was deleted.')
+			 ->dontSee('More about Star Trek: First Contact');
 	}
 }

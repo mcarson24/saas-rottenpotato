@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Movie;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -26,9 +27,11 @@ class MoviesController extends Controller
 
 	public function store(Request $request)
 	{
+		$date = new Carbon($request->release_date);
+
 		Movie::create($request->all());
 
-		return redirect('movies');
+		return redirect('movies')->with('movie_status', $request->title . ' was added.');
 	}
 
 	public function edit(Movie $movie)
@@ -40,13 +43,15 @@ class MoviesController extends Controller
 	{
 		$movie->update($request->all());
 
-		return redirect('movies/' . $movie->slug);
+		return redirect('movies/' . $movie->slug)->with('movie_status', $request->title . ' was updated.');
 	}
 
 	public function destroy(Movie $movie)
 	{
+		$title = $movie->title;
+
 		$movie->delete();
 
-		return redirect('movies');
+		return redirect('movies')->with('movie_status', $title . ' was deleted.');
 	}
 }

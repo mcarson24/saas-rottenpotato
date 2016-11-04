@@ -1,7 +1,12 @@
 @extends('layout')
 
 @section('content')
+
     <h1>All Movies</h1>
+
+    @if (session()->has('movie_status'))
+        <span>{{ session('movie_status') }}</span>
+    @endif
     <table id="movies">
         <thead>
             <tr>
@@ -16,7 +21,7 @@
                 <tr>
                     <td>{{ $movie->title }}</td>
                     <td>{{ $movie->rating }}</td>
-                    <td>{{ $movie->release_date }}</td>
+                    <td>{{ $movie->nice_release_date }}</td>
                     <td><a href="{{ action('MoviesController@show', ['slug' => $movie->slug]) }}">More about {{ $movie->title }}</a></td>
                 </tr>
             @endforeach
