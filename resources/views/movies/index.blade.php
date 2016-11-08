@@ -11,11 +11,11 @@
         <thead>
             <tr>
                 <th class="{{ $sort_order == 'title' ? 'sorted' : '' }}">
-                    <a href="{{ action('MoviesController@index', ['sort' => 'title']) }}">Movie Title</a>
+                    <a href="{{ action('MoviesController@index', ['sort' => 'title']) }}" id="title_header">Movie Title</a>
                 </th>
                 <th>Rating</th>
                 <th class="{{ $sort_order == 'release_date' ? 'sorted' : '' }}">
-                    <a href="{{ action('MoviesController@index', ['sort' => 'release_date']) }}">Release Date</a>
+                    <a href="{{ action('MoviesController@index', ['sort' => 'release_date']) }}" id="release_date_header">Release Date</a>
                 </th>
                 <th>More Info</th>
             </tr>
