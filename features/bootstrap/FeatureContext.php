@@ -46,12 +46,21 @@ class FeatureContext extends MinkContext implements Context
 	}
 
 	/**
+	 * @Then I should see :arg1 before :arg2
+	 */
+	public function iShouldSeeBefore($first, $second)
+	{
+		$this->visit('movies');
+		$this->assertElementContainsText('tr#movie_1 .title', $first);
+		$this->assertElementContainsText('tr#movie_2 .title', $second);
+	}
+
+	/**
 	 * @Then I should see the movies in this order :arg1 before :arg2 before :arg3
 	 */
 	public function iShouldSeeTheMoviesInThisOrderBeforeBefore($first, $second, $third)
 	{
 		$this->visit('movies');
-		$this->assertNumElements(1, 'table');
 		$this->assertElementContainsText('tr#movie_1 .title', $first);
 		$this->assertElementContainsText('tr#movie_2 .title', $second);
 		$this->assertElementContainsText('tr#movie_3 .title', $third);

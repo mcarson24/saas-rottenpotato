@@ -14,7 +14,9 @@
                     <a href="{{ action('MoviesController@index', ['order' => 'title']) }}">Movie Title</a>
                 </th>
                 <th>Rating</th>
-                <th>Release Date</th>
+                <th>
+                    <a href="{{ action('MoviesController@index', ['order' => 'release_date']) }}">Release Date</a>
+                </th>
                 <th>More Info</th>
             </tr>
         </thead>

@@ -49,6 +49,7 @@ class Movie extends Model
 		{
 			return self::recent();
 		}
+		
 		return self::orderBy($sort_order, 'asc')->take($amountOfMovies)->get();
 	}
 }
