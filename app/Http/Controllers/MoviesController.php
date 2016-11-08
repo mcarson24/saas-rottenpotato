@@ -10,11 +10,11 @@ class MoviesController extends Controller
 {
     public function index(Request $request)
 	{
-		$sort_order = $request->input('order') ?? 'created_at';
+		$sort_order = $request->input('sort') ?? 'created_at';
 
 		$movies = Movie::sortBy($sort_order);
 
-		return view('movies.index', compact('movies'));
+		return view('movies.index', compact('movies', 'sort_order'));
 	}
 
 	public function create()

@@ -10,12 +10,12 @@
     <table id="movies">
         <thead>
             <tr>
-                <th>
-                    <a href="{{ action('MoviesController@index', ['order' => 'title']) }}">Movie Title</a>
+                <th class="{{ $sort_order == 'title' ? 'sorted' : '' }}">
+                    <a href="{{ action('MoviesController@index', ['sort' => 'title']) }}">Movie Title</a>
                 </th>
                 <th>Rating</th>
-                <th>
-                    <a href="{{ action('MoviesController@index', ['order' => 'release_date']) }}">Release Date</a>
+                <th class="{{ $sort_order == 'release_date' ? 'sorted' : '' }}">
+                    <a href="{{ action('MoviesController@index', ['sort' => 'release_date']) }}">Release Date</a>
                 </th>
                 <th>More Info</th>
             </tr>

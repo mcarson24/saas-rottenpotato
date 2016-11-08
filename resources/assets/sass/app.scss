@@ -58,6 +58,9 @@ table {
       border: 2px solid white;
       font-weight: bold;
       background-color: wheat;
+      &.sorted {
+        background-color: yellow;
+      }
     }
     th, td {
       padding: 4px;
