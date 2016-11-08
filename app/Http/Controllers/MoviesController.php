@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class MoviesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 	{
-		$movies = Movie::recent(10);
+		$sort_order = $request->input('order') ?? 'created_at';
+
+		$movies = Movie::sortBy($sort_order);
 
 		return view('movies.index', compact('movies'));
 	}

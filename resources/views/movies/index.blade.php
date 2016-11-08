@@ -10,7 +10,9 @@
     <table id="movies">
         <thead>
             <tr>
-                <th>Movie Title</th>
+                <th>
+                    <a href="{{ action('MoviesController@index', ['order' => 'title']) }}">Movie Title</a>
+                </th>
                 <th>Rating</th>
                 <th>Release Date</th>
                 <th>More Info</th>
@@ -18,10 +20,10 @@
         </thead>
         <tbody>
             @foreach ($movies as $movie)
-                <tr>
-                    <td>{{ $movie->title }}</td>
-                    <td>{{ $movie->rating }}</td>
-                    <td>{{ $movie->nice_release_date }}</td>
+                <tr class="movie" id="movie_{{ $loop->index + 1 }}">
+                    <td class="title">{{ $movie->title }}</td>
+                    <td class="rating">{{ $movie->rating }}</td>
+                    <td class="release_date">{{ $movie->nice_release_date }}</td>
                     <td><a href="{{ action('MoviesController@show', ['slug' => $movie->slug]) }}">More about {{ $movie->title }}</a></td>
                 </tr>
             @endforeach

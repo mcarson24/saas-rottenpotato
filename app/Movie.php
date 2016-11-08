@@ -42,4 +42,13 @@ class Movie extends Model
 	{
 		return self::latest('created_at')->take($amountOfMovies)->get();
 	}
+
+	public static function sortBy($sort_order, $amountOfMovies = 15)
+	{
+		if ($sort_order == 'created_at')
+		{
+			return self::recent();
+		}
+		return self::orderBy($sort_order, 'asc')->take($amountOfMovies)->get();
+	}
 }
