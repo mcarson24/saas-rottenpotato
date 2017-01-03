@@ -4,6 +4,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Laracasts\Behat\Context\DatabaseTransactions;
 use Laracasts\Behat\Context\Migrator;
 
 /**
@@ -12,6 +13,8 @@ use Laracasts\Behat\Context\Migrator;
 class FeatureContext extends MinkContext implements Context
 {
 	use Migrator;
+
+	use DatabaseTransactions;
 
     /**
      * Initializes context.
@@ -35,6 +38,7 @@ class FeatureContext extends MinkContext implements Context
 		$this->fillField('release_date', $release_date);
 		$this->pressButton('Add Movie');
 		$this->assertPageAddress('movies');
+		$this->assertPageContainsText($title);
 	}
 
 	/**
@@ -51,8 +55,8 @@ class FeatureContext extends MinkContext implements Context
 	public function iShouldSeeBefore($first, $second)
 	{
 		$this->visit('movies');
-		$this->assertElementContainsText('tr#movie_1 .title', $first);
-		$this->assertElementContainsText('tr#movie_2 .title', $second);
+		$this->assertElementContainsText('tr#movie_1 > .title', $first);
+		$this->assertElementContainsText('tr#movie_2 > .title', $second);
 	}
 
 	/**
@@ -61,8 +65,8 @@ class FeatureContext extends MinkContext implements Context
 	public function iShouldSeeTheMoviesInThisOrderBeforeBefore($first, $second, $third)
 	{
 		$this->visit('movies');
-		$this->assertElementContainsText('tr#movie_1 .title', $first);
-		$this->assertElementContainsText('tr#movie_2 .title', $second);
-		$this->assertElementContainsText('tr#movie_3 .title', $third);
+		$this->assertElementContainsText('tr#movie_1 td.title', $first);
+		$this->assertElementContainsText('tr#movie_2 td.title', $second);
+		$this->assertElementContainsText('tr#movie_3 td.title', $third);
 	}
 }

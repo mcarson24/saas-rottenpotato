@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             @foreach ($movies as $movie)
-                <tr class="movie" id="movie_{{ $loop->index + 1 }}">
+                <tr id="movie_{{ $loop->index + 1 }}">
                     <td class="title">{{ $movie->title }}</td>
                     <td class="rating">{{ $movie->rating }}</td>
                     <td class="release_date">{{ $movie->nice_release_date }}</td>
