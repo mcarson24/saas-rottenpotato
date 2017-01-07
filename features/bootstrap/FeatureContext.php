@@ -74,7 +74,6 @@ class FeatureContext extends MinkContext implements Context
 	public function iWantMoviesWithTheFollowingRatings($ratings)
 	{
 		$ratings = explode(',', $ratings);
-//		dd($ratings);
 
 		foreach ($ratings as $rating)
 		{

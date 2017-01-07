@@ -4,12 +4,12 @@ Feature: Filter Movies
   I want to be able to filter movies by their ratings
 
 Scenario: Filter out all movies except R-rated movies
-#  Given I am on the homepage
-#  Then I create a new movie with a title of "Deadpool" a rating of "R" and a release date of "02/12/2016"
-#  Then I create another new movie with a title of "Bambi" a rating of "G" and a release date of "08/21/1942"
-#  Then I want movies with the following ratings "R"
-#  Then I should see a movie with the rating "R"
-#  And I should not see a movie with the rating "G"
+  Given I am on the homepage
+  Then I create a new movie with a title of "Deadpool" a rating of "R" and a release date of "02/12/2016"
+  Then I create another new movie with a title of "Bambi" a rating of "G" and a release date of "08/21/1942"
+  Then I want movies with the following ratings "R"
+  Then I should see a movie with the rating "R"
+  And I should not see a movie with the rating "G"
 
 Scenario: Filter out all R-rated movies
   Given I am on the homepage

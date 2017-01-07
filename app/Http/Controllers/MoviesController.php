@@ -26,7 +26,6 @@ class MoviesController extends Controller
 		if($request->has('filter'))
 		{
 			$movies = Movie::sortBy($sort_order, $direction)->whereIn('rating', $request->input('filter'));
-//			dd($request->input('filter'));
 		}
 
 		$ratings = Movie::ratings();
