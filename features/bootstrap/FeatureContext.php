@@ -35,11 +35,13 @@ class FeatureContext extends MinkContext implements Context
 	 */
 	public function iCreateANewMovieWithATitleOfARatingOfAndAReleaseDateOf($title, $rating, $release_date)
 	{
-		Movie::create([
-			'title' => $title,
-			'rating' => $rating,
-			'release_date' => Carbon::parse($release_date)
-		]);
+		$this->visit('movies/create');
+		$this->fillField('title', $title);
+		$this->selectOption('movie_rating', $rating);
+		$this->fillField('release_date', Carbon::parse($release_date));
+		$this->pressButton('Add Movie');
+		$this->assertPageAddress('movies');
+		$this->assertPageContainsText($title);
 	}
 
 	/**
