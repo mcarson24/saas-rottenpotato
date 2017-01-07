@@ -12,9 +12,18 @@ class MoviesController extends Controller
 	{
 		$sort_order = $request->input('sort') ?? 'created_at';
 
-		$movies = Movie::sortBy($sort_order);
+		$direction = 'asc';
+		$reverseOrderLink = 'reverse';
 
-		return view('movies.index', compact('movies', 'sort_order'));
+		if ($request->input('order') == 'reverse')
+		{
+			$direction = 'desc';
+			$reverseOrderLink = '';
+		}
+
+		$movies = Movie::sortBy($sort_order, $direction);
+
+		return view('movies.index', compact('movies', 'sort_order', 'reverseOrderLink'));
 	}
 
 	public function create()
