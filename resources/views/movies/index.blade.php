@@ -22,8 +22,8 @@
         </thead>
         <tbody>
             @foreach ($movies as $movie)
-                <tr id="movie_{{ $loop->index + 1 }}">
-                    <td class="title">{{ $movie->title }}</td>
+                <tr class="movie">
+                    <td class="movie-title">{{ $movie->title }}</td>
                     <td class="rating">{{ $movie->rating }}</td>
                     <td class="release_date">{{ $movie->nice_release_date }}</td>
                     <td><a href="{{ action('MoviesController@show', ['slug' => $movie->slug]) }}">More about {{ $movie->title }}</a></td>

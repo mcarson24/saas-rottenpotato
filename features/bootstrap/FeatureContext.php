@@ -1,9 +1,12 @@
 <?php
 
+use App\Movie;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Driver\GoutteDriver;
 use Behat\MinkExtension\Context\MinkContext;
+use Carbon\Carbon;
 use Laracasts\Behat\Context\DatabaseTransactions;
 use Laracasts\Behat\Context\Migrator;
 
@@ -32,13 +35,11 @@ class FeatureContext extends MinkContext implements Context
 	 */
 	public function iCreateANewMovieWithATitleOfARatingOfAndAReleaseDateOf($title, $rating, $release_date)
 	{
-		$this->visit('movies/create');
-		$this->fillField('title', $title);
-		$this->selectOption('movie_rating', $rating);
-		$this->fillField('release_date', $release_date);
-		$this->pressButton('Add Movie');
-		$this->assertPageAddress('movies');
-		$this->assertPageContainsText($title);
+		Movie::create([
+			'title' => $title,
+			'rating' => $rating,
+			'release_date' => Carbon::parse($release_date)
+		]);
 	}
 
 	/**
@@ -60,13 +61,19 @@ class FeatureContext extends MinkContext implements Context
 	}
 
 	/**
-	 * @Then I should see the movies in this order :arg1 before :arg2 before :arg3
+	 * @Then /^"([^"]*)" should precede "([^"]*)" for the query "([^"]*)"$/
 	 */
-	public function iShouldSeeTheMoviesInThisOrderBeforeBefore($first, $second, $third)
+	public function shouldPrecedeForTheQuery($firstTitle, $secondTitle, $cssQuery)
 	{
-		$this->visit('movies');
-		$this->assertElementContainsText('tr#movie_1 td.title', $first);
-		$this->assertElementContainsText('tr#movie_2 td.title', $second);
-		$this->assertElementContainsText('tr#movie_3 td.title', $third);
+		$items = array_map(function ($matchingElement) {
+				return $matchingElement->getText();
+		}, $this->getSession()->getPage()->findAll('css', $cssQuery));
+
+		PHPUnit_Framework_Assert::assertTrue(
+			array_search($firstTitle, $items) <
+			array_search($secondTitle, $items),
+			"$firstTitle does not proceed $secondTitle"
+		);
+
 	}
 }
