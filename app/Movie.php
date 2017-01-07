@@ -33,6 +33,11 @@ class Movie extends Model
 		return $date->format('F j, Y');
 	}
 
+	public static function ratings()
+	{
+		return self::distinct('rating')->orderBy('rating')->pluck('rating');
+	}
+
 	public static function findBySlug($slug)
 	{
 		return self::where('slug', $slug)->firstOrFail();

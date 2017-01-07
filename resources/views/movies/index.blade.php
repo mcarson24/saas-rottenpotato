@@ -7,6 +7,13 @@
     @if (session()->has('movie_status'))
         <span>{{ session('movie_status') }}</span>
     @endif
+    <form id="ratings-filter" action="{{ action('MoviesController@index') }}">
+        @foreach($ratings as $rating)
+            <label for="{{ $rating }}">{{ $rating }}</label>
+            <input type="checkbox" name="filter[]" value="{{ $rating }}" id="{{ $rating }}-check">
+        @endforeach
+        <button type="submit">Filter</button>
+    </form>
     <table id="movies">
         <thead>
             <tr>

@@ -53,16 +53,6 @@ class FeatureContext extends MinkContext implements Context
 	}
 
 	/**
-	 * @Then I should see :arg1 before :arg2
-	 */
-	public function iShouldSeeBefore($first, $second)
-	{
-		$this->visit('movies');
-		$this->assertElementContainsText('tr#movie_1 > .title', $first);
-		$this->assertElementContainsText('tr#movie_2 > .title', $second);
-	}
-
-	/**
 	 * @Then /^"([^"]*)" should precede "([^"]*)" for the query "([^"]*)"$/
 	 */
 	public function shouldPrecedeForTheQuery($firstTitle, $secondTitle, $cssQuery)
@@ -76,6 +66,47 @@ class FeatureContext extends MinkContext implements Context
 			array_search($secondTitle, $items),
 			"$firstTitle does not proceed $secondTitle"
 		);
+	}
 
+	/**
+	 * @Then I want movies with the following ratings :arg1
+	 */
+	public function iWantMoviesWithTheFollowingRatings($ratings)
+	{
+		$ratings = explode(',', $ratings);
+//		dd($ratings);
+
+		foreach ($ratings as $rating)
+		{
+			$this->checkOption($rating . '-check');
+		}
+
+		$this->pressButton('Filter');
+
+		$this->assertPageAddress('movies?filter=R');
+	}
+
+	/**
+	 * @Then I should see a movie with the rating :arg1
+	 */
+	public function iShouldSeeAMovieWithTheRating($rating)
+	{
+		$items = array_map(function($rating) {
+			return $rating->getText();
+		}, $this->getSession()->getPage()->findAll('css', 'td.rating'));
+
+		PHPUnit_Framework_Assert::assertContains($rating, $items);
+	}
+
+	/**
+	 * @Then I should not see a movie with the rating :arg1
+	 */
+	public function iShouldNotSeeAMovieWithTheRating($rating)
+	{
+		$items = array_map(function($rating) {
+			return $rating->getText();
+		}, $this->getSession()->getPage()->findAll('css', 'td.rating'));
+
+		PHPUnit_Framework_Assert::assertNotContains($rating, $items);
 	}
 }

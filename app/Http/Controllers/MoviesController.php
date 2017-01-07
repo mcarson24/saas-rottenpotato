@@ -23,7 +23,15 @@ class MoviesController extends Controller
 
 		$movies = Movie::sortBy($sort_order, $direction);
 
-		return view('movies.index', compact('movies', 'sort_order', 'reverseOrderLink'));
+		if($request->has('filter'))
+		{
+			$movies = Movie::sortBy($sort_order, $direction)->whereIn('rating', $request->input('filter'));
+//			dd($request->input('filter'));
+		}
+
+		$ratings = Movie::ratings();
+
+		return view('movies.index', compact('movies', 'sort_order', 'reverseOrderLink', 'ratings'));
 	}
 
 	public function create()
