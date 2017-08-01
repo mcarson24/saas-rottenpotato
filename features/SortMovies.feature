@@ -39,6 +39,14 @@ Scenario: Reverse the order of the movies sorted by release date
   Then I create another new movie with a title of "Star Wars: Episode IV - A New Hope" a rating of "PG" and a release date of "05/25/1977"
   Then I follow "Release Date"
   Then I follow "Release Date"
+  Then I am on "movies?sort=release_date"
   Then "Star Wars: Episode IV - A New Hope" should precede "Star Wars: Episode V - The Empire Strikes Back" for the query "table#movies tr.movie td.movie-title"
-  Then I follow "Release Date"
+  Then I am on "movies?sort=release_date&order=reverse"
   Then "Star Wars: Episode V - The Empire Strikes Back" should precede "Star Wars: Episode IV - A New Hope" for the query "table#movies tr.movie td.movie-title:first-child"
+
+Scenario: Remember the sorting and filtering settings 
+  Given I am on the homepage
+  Then I create a new movie with a title of "Star Wars: Episode V - The Empire Strikes Back" a rating of "PG" and a release date of "06/20/1980"
+  Then I follow "Release Date"
+  Then I create a new movie with a title of "Star Wars: Episode IV - A New Hope" a rating of "PG" and a release date of "05/25/1977"
+  Then "Star Wars: Episode V - The Empire Strikes Back" should precede "Star Wars: Episode IV - A New Hope" for the query "table#movies tr.movie td.movie-title"

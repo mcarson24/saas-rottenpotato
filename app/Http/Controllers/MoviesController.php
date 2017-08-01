@@ -10,20 +10,40 @@ class MoviesController extends Controller
 {
     public function index(Request $request)
 	{
-		$sort_order = $request->input('sort') ?? 'created_at';
+		$sort_order = 'created_at';
+		if (session()->has('sort_order'))
+		{
+			$sort_order = session('sort_order');
+		}
+		if ($request->input('sort'))
+		{
+			$sort_order = request('sort');
+		}
 
 		$direction = 'asc';
-		$reverseOrderLink = 'reverse';
-
-		if ($request->input('order') == 'reverse')
+		if (session()->has('order'))
 		{
-			$direction = 'desc';
-			$reverseOrderLink = '';
+			$direction = session('order');
 		}
+		if (request('order'))
+		{
+			$direction = request('order');
+		}
+
+		if ($direction == 'asc')
+		{
+			$nextDirection = 'desc';
+		}
+		else 
+		{
+			$nextDirection = 'asc';
+		}
+
+		session(['sort_order' => $sort_order, 'order' => $direction]);
 
 		$movies = Movie::sortBy($sort_order, $direction);
 
-		return view('movies.index', compact('movies', 'sort_order', 'reverseOrderLink'));
+		return view('movies.index', compact('movies', 'sort_order', 'nextDirection'));
 	}
 
 	public function create()
@@ -38,8 +58,6 @@ class MoviesController extends Controller
 
 	public function store(Request $request)
 	{
-		$date = new Carbon($request->release_date);
-
 		Movie::create($request->all());
 
 		return redirect('movies')->with('movie_status', $request->title . ' was added.');
