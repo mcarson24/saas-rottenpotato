@@ -8,42 +8,17 @@ use Illuminate\Http\Request;
 
 class MoviesController extends Controller
 {
+	protected $sort_order;
+	protected $direction;
+	protected $nextDirection;
+
     public function index(Request $request)
 	{
-		$sort_order = 'created_at';
-		if (session()->has('sort_order'))
-		{
-			$sort_order = session('sort_order');
-		}
-		if ($request->input('sort'))
-		{
-			$sort_order = request('sort');
-		}
+		$this->getSortSettings();
 
-		$direction = 'asc';
-		if (session()->has('order'))
-		{
-			$direction = session('order');
-		}
-		if (request('order'))
-		{
-			$direction = request('order');
-		}
+		$movies = Movie::sortBy($this->sort_order, $this->direction);
 
-		if ($direction == 'asc')
-		{
-			$nextDirection = 'desc';
-		}
-		else 
-		{
-			$nextDirection = 'asc';
-		}
-
-		session(['sort_order' => $sort_order, 'order' => $direction]);
-
-		$movies = Movie::sortBy($sort_order, $direction);
-
-		return view('movies.index', compact('movies', 'sort_order', 'nextDirection'));
+		return view('movies.index', ['movies' => $movies, 'sort_order' => $this->sort_order, 'nextDirection' => $this->nextDirection]);
 	}
 
 	public function create()
@@ -82,5 +57,41 @@ class MoviesController extends Controller
 		$movie->delete();
 
 		return redirect('movies')->with('movie_status', $title . ' was deleted.');
+	}
+
+	private function getSortSettings()
+	{
+		$this->sort_order = 'created_at';
+
+		if (session()->has('sort_order'))
+		{
+			$this->sort_order = session('sort_order');
+		}
+		if (request('sort'))
+		{
+			$this->sort_order = request('sort');
+		}
+
+		$this->direction = 'asc';
+
+		if (session()->has('order'))
+		{
+			$this->direction = session('order');
+		}
+		if (request('order'))
+		{
+			$this->direction = request('order');
+		}
+
+		session(['sort_order' => $this->sort_order, 'order' => $this->direction]);
+
+		if ($this->direction == 'asc')
+		{
+			$this->nextDirection = 'desc';
+		}
+		else 
+		{
+			$this->nextDirection = 'asc';
+		}
 	}
 }
